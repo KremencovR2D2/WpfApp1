@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Markup;
+using WpfApp1.Styles;
 
-namespace WpfApp1
+namespace WpfApp1.Converters
 {
     /// <summary>
     /// Конвертатор для загрузки Xaml картинок из ресурсного файла.
@@ -21,7 +17,7 @@ namespace WpfApp1
     [ValueConversion(typeof(ImageUrl), typeof(UIElement))]
     public class XamlImageLoaderConverter : IValueConverter
     {
-        private static Regex _regexPath;
+        //private static Regex _regexPath;
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -29,13 +25,13 @@ namespace WpfApp1
                 return DependencyProperty.UnsetValue;
 
             Uri uri;
-            if (value is Uri)
-                uri = (Uri)value;
+            if (value is Uri uri1)
+                uri = uri1;
             else if (value is ImageUrl)
                 uri = ((ImageUrl)value).ImageUri;
             else
             {
-                Trace.WriteLine(string.Format("XamlImageLoaderConverter: NotSupportedException: {0}", value.GetType()));
+                Trace.WriteLine($"XamlImageLoaderConverter: NotSupportedException: {value.GetType()}");
                 return DependencyProperty.UnsetValue;
             }
 
@@ -50,14 +46,13 @@ namespace WpfApp1
             }
             catch (Exception ex)
             {
-                Trace.WriteLine(string.Format("XamlImageLoaderConverter: Load Xaml image: {0}", ex));
+                Trace.WriteLine($"XamlImageLoaderConverter: Load Xaml image: {ex}");
                 return DependencyProperty.UnsetValue;
             }
         }
 
         private static Stream GetStream(Uri uri)
         {
-            Stream stream;
             //if (DesignTimeMode.IsDesignMode)
             //    return File.OpenRead(uri.AbsolutePath);
 
@@ -67,7 +62,7 @@ namespace WpfApp1
                 throw new NullReferenceException("streamResourceInfo");
             }
 
-            stream = streamResourceInfo.Stream;
+            var stream = streamResourceInfo.Stream;
             if (stream == null)
             {
                 throw new NullReferenceException("streamResourceInfo.Stream");
@@ -80,18 +75,18 @@ namespace WpfApp1
             throw new NotImplementedException();
         }
 
-        private Uri RelativeUri(Uri uri)
-        {
-            if (_regexPath == null)
-                _regexPath = new Regex(@"pack:\/\/application:,[^,]*,[^,]*,[^\/]*|\/(?<component>[^;]+);component(?<path>(\/|\w|\.)+)");
-            var match = _regexPath.Match(uri.OriginalString);
-            if (match.Groups["path"] == null)
-            {
-                throw new NullReferenceException(string.Format("uri: {0}, match.Groups[\"path\"]: null", uri));
-                //return uri;
-            }
-            var relativeUri = new Uri(string.Format("${0}", match.Groups["path"].Value.Replace("/", "\\")), UriKind.Relative);
-            return relativeUri;
-        }
+        //private Uri RelativeUri(Uri uri)
+        //{
+        //    if (_regexPath == null)
+        //        _regexPath = new Regex(@"pack:\/\/application:,[^,]*,[^,]*,[^\/]*|\/(?<component>[^;]+);component(?<path>(\/|\w|\.)+)");
+        //    var match = _regexPath.Match(uri.OriginalString);
+        //    if (match.Groups["path"] == null)
+        //    {
+        //        throw new NullReferenceException($"uri: {uri}, match.Groups[\"path\"]: null");
+        //        //return uri;
+        //    }
+        //    var relativeUri = new Uri($"${match.Groups["path"].Value.Replace("/", "\\")}", UriKind.Relative);
+        //    return relativeUri;
+        //}
     }
 }

@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-         Stretch="Uniform">
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Stretch="Uniform">
     <Canvas Width="24" Height="24">
-        <Path Stroke="Transparent"
-              StrokeThickness="0" Data="M16,18H18V6H16M6,18L14.5,12L6,6V18Z" />
+        <Path
+            Data="M16,18H18V6H16M6,18L14.5,12L6,6V18Z"
+            Stroke="Transparent"
+            StrokeThickness="0" />
     </Canvas>
 </Viewbox>

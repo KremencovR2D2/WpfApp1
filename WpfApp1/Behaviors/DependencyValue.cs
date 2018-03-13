@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
 
-namespace WpfApp1
+namespace WpfApp1.Behaviors
 {
     /// <summary>
     /// Класс для проброски значений в стилях
@@ -91,7 +86,7 @@ namespace WpfApp1
 
         public static object GetObjectValue(DependencyObject dependencyObject)
         {
-            return (object)dependencyObject.GetValue(ObjectValueProperty);
+            return dependencyObject.GetValue(ObjectValueProperty);
         }
 
         public static void SetObjectValue(DependencyObject dependencyObject, object value)
