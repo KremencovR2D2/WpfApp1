@@ -311,6 +311,9 @@
                 <DataGrid
                     ItemsSource="{Binding TrackModelList}"
                     ScrollViewer.CanContentScroll="False"
+                    VirtualizingPanel.IsVirtualizingWhenGrouping="True"
+                    VirtualizingPanel.VirtualizationMode="Recycling"
+                    VirtualizingPanel.IsVirtualizing="True"
                     SelectedItem="{Binding SelectedTrack}"
                     Style="{StaticResource CustomDataGridStyle}">
                     <DataGrid.Resources>
