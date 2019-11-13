@@ -29,7 +29,7 @@ namespace DraftProject
             Console.WriteLine();
             foreach (var item in randomArray)
             {
-                if (item > a && item < b)
+                if (item >= a && item <= b)
                 {
                     itemsInRange.Add(item);
                 }
